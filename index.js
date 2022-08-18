@@ -1,28 +1,28 @@
-let dia = prompt("INGRESE UN DIA DE LA SEMANA (lunes, martes, miercoles, jueves, viernes, sabado, domingo)");
-if ((dia == "lunes") || (dia == "martes") || (dia == "miercoles") || (dia == "jueves") || (dia == "viernes") || (dia == "sabado") || (dia == "domingo") ) {
-switch (dia) {
-case "lunes":
-    alert("Mañana será martes");
-    break;
-case "martes":
-    alert("Mañana será miércoles");
-    break;
-case "miercoles":
-    alert("Mañana será jueves");
-    break;
-case "jueves":
-    alert("Mañana será viernes");
-    break;
-case "viernes":
-    alert("Mañana será sábado");
-    break;
-case "sabado":
-    alert("Mañana será domingo");
-    break;
-case "domingo":
-    alert("Mañana será lunes");
-    break;
+let numero1 = parseInt(prompt("INGRESE EL PRIMER NUMERO DE LA OPERACION"));
+let operacion = prompt("INGRESE EL OPERADOR (+) (-) (*) (/)");
+let numero2 = parseInt(prompt("INGRESE EL SEGUNDO NUMERO DE LA OPERACION"));
 
-}} else {
-    alert("NO HA INGRESADO UN DÍA VÁLIDO, RECARGUE LA PÁGINA PARA VOLVER A INTENTARLO");
-}
+   switch (operacion) {
+        case "+" :
+            resultado = numero1 + numero2;
+            break;
+        case "-":
+            if (numero1 > numero2) {
+                resultado = numero1 - numero2;
+            }else {
+                resultado = numero2 - numero1;
+            }
+            break;
+        case "*":
+            resultado = numero1 * numero2;
+            break;
+        case "/":
+            if (numero1 > numero2) {
+                resultado = numero1 / numero2;
+            }else {
+                resultado = numero2 / numero1;
+            }
+        break;
+    }
+
+alert(resultado);
