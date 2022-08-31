@@ -1,57 +1,36 @@
-/* let numero1 = parseInt(prompt("INGRESE EL PRIMER NUMERO DE LA OPERACION"));
-let operacion = prompt("INGRESE EL OPERADOR (+) (-) (*) (/)");
-let numero2 = parseInt(prompt("INGRESE EL SEGUNDO NUMERO DE LA OPERACION"));
+let operacion;
+    document.querySelector('#suma').addEventListener('click', () =>{
+        operacion = '+';
+    });
+    document.querySelector('#resta').addEventListener('click', () =>{
+        operacion = '-';
+    });
+    document.querySelector('#multiplicacion').addEventListener('click', () =>{
+        operacion = '*';
+    });
+    document.querySelector('#division').addEventListener('click', () =>{
+        operacion = '/';
+    });
+    document.querySelector('#borrar').addEventListener('click', () =>{
+        n.textContent = "";
+        numero1 = "";
+        numero2 = "";
+    });
+   
 
-   switch (operacion) {
-        case "+" :
-            resultado = numero1 + numero2;
-            break;
-        case "-":
-            if (numero1 > numero2) {
-                resultado = numero1 - numero2;
-            }else {
-                resultado = numero2 - numero1;
-            }
-            break;
-        case "*":
-            resultado = numero1 * numero2;
-            break;
-        case "/":
-            if (numero1 > numero2) {
-                resultado = numero1 / numero2;
-            }else {
-                resultado = numero2 / numero1;
-            }
-        break;
-    }
-
-alert(resultado); */
-
-class Producto {
-    constructor(nombre, precio) {
-        this.nombre  = nombre.toUpperCase();
-        this.precio  = parseFloat(precio);
-        this.vendido = false;
-    }
-    sumaIva() {
-        this.precio = this.precio * 1.21;
-    }
-}
-//Almaceno objetos
-const productos = [];
-productos.push(new Producto("arroz", "125"));
-productos.push(new Producto("fideo", "110"));
-productos.push(new Producto("pan", "100"));
-productos.push(new Producto("leche", "180"));
-productos.push(new Producto("azucar", "120"));
-productos.push(new Producto("yerba", "300"));
-
-for (const producto of productos) {
-    console.log('ANTES - '+producto.nombre +': $'+  producto.precio);
-}
-//Modifico el valor
-for (const producto of productos){
-
-    producto.sumaIva();
-    console.log('DESPUES - '+producto.nombre +': $'+  producto.precio);
-}
+    document.querySelector('#calcular').addEventListener('click', () =>{
+        const numero1 = parseInt(document.querySelector('#numero1').value);
+        const numero2 = parseInt(document.querySelector('#numero2').value);
+        let n;
+        if(operacion == '+'){
+            n = numero1 + numero2;
+        }else if( operacion == '-'){
+            n = numero1 - numero2;
+        }else if(operacion == '*'){
+            n = numero1 * numero2;
+        }else if(operacion == '/'){
+            n = numero1 / numero2;
+        }
+        document.querySelector('#n').innerHTML = n;
+        
+    });
