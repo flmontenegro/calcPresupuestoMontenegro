@@ -4,26 +4,50 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
     <link rel="stylesheet" href="/src/style.css">
-    <title>CALCULADORA</title>
+    <title>APP GASTOS</title>
 </head>
 <body>
-    <h1>CALCULADORA</h1>
-    <input type="text" id="numero1" placeholder="Ingrese un numero">
-    <br>
-    <br>
-   <button id="suma">+</button>
-    <button id="resta">-</button>
-    <button id="multiplicacion">*</button>
-    <button id="division">/</button>
-    <br>
-    <br>
-    <input type="text" id="numero2" placeholder="Ingrese un numero">
-    <br>
-    <br>
-    <button id="calcular">Calcular</button>
-    <button id="borrar">Borrar</button>
-    <output id="n"></output> 
-    <script src="../index.js"></script>
-  </body>
+    <div class="container">
+        <header>
+            <h1 class="fs-1 fw-bold"> APP GASTOS</h1>
+
+        </header>
+        <section>
+            <div class="contenido primario">
+                <h2>AÑADIR GASTOS</h2>
+                <form id="añadirGasto" action="#">
+                    <div class="form-group">
+                        <label for="gasto">GASTO:</label>
+                        <input type="text" class="form-control" id="gasto" placeholder="Nombre del gasto">
+                    </div>
+                    <div class="form-group">
+                        <label for="cantidad">PRECIO:</label>
+                        <input type="text" class="form-control" id="cantidad" placeholder="Precio en $">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Agregar</button>
+                </form>
+            </div>
+            <div>
+                <h2> LISTADO </h2>
+                <div id="gastos">
+                    <ul class="list-group"></ul>
+                </div>
+                <div id="presupuesto" class="presupuesto">
+                    <div class="alert alert-primary">
+                        <p>PRESUPUESTO TOTAL: $ <span id="total"></span> </p>
+                    </div>
+                    <div class="restante alert alert-success">
+                        <p>DINERO RESTANTE: $ <span id="restante"></span></p>
+                    </div>
+                </div> 
+            </div>
+        </section>
+
+
+    </div>
+<script src="/index.js"></script>
+</body>
 </html>
