@@ -28,10 +28,12 @@ newGasto(gasto){
 valorRestante(){
     const dineroGastado = this.gastos.reduce((total,gasto) => total + gasto.cantidad, 0);
     this.restante = this.presupuesto - dineroGastado;
-}}
+}
+sacarGasto(id){
+    this.gastos = this.gastos.filter(gasto => gasto.id !== id);
+    this.valorRestante();
+}} 
  let presupuesto;
-//CREAR UNO PARA ELIMINAR UN GASTO
-
 //
 class Idx {
     agregarPresupuesto(cantidad){
@@ -59,19 +61,32 @@ class Idx {
 
 
     agregarGasto(gastos){
+        
         this.listHtml();
         gastos.forEach( gasto => {
             const {cantidad, nombre, id} = gasto;
 
             //crear lista
             const newGasto = document.createElement('li');
-            newGasto.className = ' d-flex align-items-center'
+            newGasto.className = 'list-group'
             newGasto.dataset.id = id;
             newGasto.innerHTML = `${nombre} - $${cantidad}` ;
+
+            //BORRAR UN GASTO
+            const borrarGasto = document.createElement('button');
+            borrarGasto.classList.add('btn','btn-danger','borrar-gasto');
+            borrarGasto.textContent = 'Borrar';
+            newGasto.appendChild(borrarGasto);
+            borrarGasto.onclick = ()=>{
+                sacarGasto(id);
+            }
+
             listadoGastos.appendChild(newGasto);
             
         });
     }
+    
+   
     listHtml(){
         while(listadoGastos.firstChild){
             listadoGastos.removeChild(listadoGastos.firstChild);
@@ -98,6 +113,7 @@ class Idx {
 
         const nombre = document.querySelector('#gasto').value;
         const cantidad = Number (document.querySelector('#cantidad').value);
+        
 //AGREGAR PARA VALIDAR LOS DATOS DEL FORMULARIO
         const gasto = {nombre, cantidad, id: Date.now()}
         presupuesto.newGasto(gasto);
@@ -108,3 +124,17 @@ class Idx {
         idx.newRestante(restante);
         formulario.reset();
     }
+
+    //CREAR UNO PARA ELIMINAR UN GASTO
+function sacarGasto(id){
+    // elimina gastos del obj
+    presupuesto.sacarGasto(id);
+
+    const {gastos, restante} = presupuesto;
+    // elimina gastos en html
+    idx.agregarGasto(gastos);
+
+    // actualizar restante
+    idx.newRestante(restante);
+
+}
