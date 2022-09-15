@@ -32,7 +32,8 @@ valorRestante(){
 sacarGasto(id){
     this.gastos = this.gastos.filter(gasto => gasto.id !== id);
     this.valorRestante();
-}} 
+}
+} 
  let presupuesto;
 //
 class Idx {
@@ -137,4 +138,19 @@ function sacarGasto(id){
     // actualizar restante
     idx.newRestante(restante);
 
+}
+
+//NO FUNCIONA
+function guardarDatos(datosIngresados){
+    let listadoGastos = getListadoGastos();
+    listadoGastos.push(datosIngresados);
+    localStorage.setItem("listaGuardar", JSON.stringify(listadoGastos));
+
+}
+function getListadoGastos(){
+    let listadoGastosLocal = JSON.parse(localStorage.getItem('listaGuardar'));
+    if (listadoGastosLocal == null){
+        listadoGastosLocal = listadoGastos;
+    }
+    return listadoGastosLocal;
 }
