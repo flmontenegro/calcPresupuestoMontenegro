@@ -26,7 +26,7 @@ newGasto(gasto){
 }
 // CALCULAR RESTANTE, LUEGO DE UN NUEVO GASTO
 valorRestante(){
-    const dineroGastado = this.gastos.reduce((total,gasto) => total + gasto.cantidad, 0);
+    const dineroGastado = this.gastos.reduce((total,gasto) => total + gasto.precio, 0);
     this.restante = this.presupuesto - dineroGastado;
 }
 sacarGasto(id){
@@ -37,8 +37,8 @@ sacarGasto(id){
  let presupuesto;
 //
 class Idx {
-    agregarPresupuesto(cantidad){
-        const {presupuesto, restante} = cantidad;
+    agregarPresupuesto(precio){
+        const {presupuesto, restante} = precio;
         document.querySelector('#total').textContent = presupuesto;
         document.querySelector('#restante').textContent = restante;
     }
@@ -65,13 +65,13 @@ class Idx {
         
         this.listHtml();
         gastos.forEach( gasto => {
-            const {cantidad, nombre, id} = gasto;
+            const {precio, nombre, id} = gasto;
 
             //crear lista
             const newGasto = document.createElement('li');
             newGasto.className = 'list-group'
             newGasto.dataset.id = id;
-            newGasto.innerHTML = `${nombre} - $${cantidad}` ;
+            newGasto.innerHTML = `${nombre} - $${precio}` ;
 
             //BORRAR UN GASTO
             const borrarGasto = document.createElement('button');
@@ -113,10 +113,10 @@ class Idx {
         e.preventDefault();
 
         const nombre = document.querySelector('#gasto').value;
-        const cantidad = Number (document.querySelector('#cantidad').value);
+        const precio = Number (document.querySelector('#precio').value);
         
 //AGREGAR PARA VALIDAR LOS DATOS DEL FORMULARIO
-        const gasto = {nombre, cantidad, id: Date.now()}
+        const gasto = {nombre, precio, id: Date.now()}
         presupuesto.newGasto(gasto);
         idx.mostrarGasto('Gasto agregado');
 
@@ -124,7 +124,14 @@ class Idx {
         idx.agregarGasto(gastos);
         idx.newRestante(restante);
         formulario.reset();
-    }
+        
+        let gastosArr = [];
+
+function guardarDatos(datosIngresados){
+    gastosArr.push(datosIngresados);
+    localStorage.setItem("listaGuardar", JSON.stringify(gastosArr));
+}
+guardarDatos(gasto);
 
     //CREAR UNO PARA ELIMINAR UN GASTO
 function sacarGasto(id){
@@ -140,17 +147,15 @@ function sacarGasto(id){
 
 }
 
-//NO FUNCIONA
-function guardarDatos(datosIngresados){
-    let listadoGastos = getListadoGastos();
-    listadoGastos.push(datosIngresados);
-    localStorage.setItem("listaGuardar", JSON.stringify(listadoGastos));
-
-}
+//STORAGE
 function getListadoGastos(){
     let listadoGastosLocal = JSON.parse(localStorage.getItem('listaGuardar'));
     if (listadoGastosLocal == null){
-        listadoGastosLocal = listadoGastos;
+            return "No hay datos"
+    }else{
+        return listadoGastosLocal;
     }
-    return listadoGastosLocal;
 }
+console.log(getListadoGastos())
+    }
+
