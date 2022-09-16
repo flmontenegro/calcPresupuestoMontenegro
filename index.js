@@ -114,6 +114,13 @@ class Idx {
 
         const nombre = document.querySelector('#gasto').value;
         const precio = Number (document.querySelector('#precio').value);
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Gasto agregado',
+            showConfirmButton: false,
+            timer: 1500
+          })
         
 //AGREGAR PARA VALIDAR LOS DATOS DEL FORMULARIO
         const gasto = {nombre, precio, id: Date.now()}
