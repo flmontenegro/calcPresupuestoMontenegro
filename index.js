@@ -33,6 +33,18 @@ sacarGasto(id){
     this.gastos = this.gastos.filter(gasto => gasto.id !== id);
     this.valorRestante();
 }
+}
+function sacarGasto(id){
+    // elimina gastos del obj
+    presupuesto.sacarGasto(id);
+
+    const {gastos, restante} = presupuesto;
+    // elimina gastos en html
+    idx.agregarGasto(gastos);
+
+    // actualizar restante
+    idx.newRestante(restante);
+
 } 
  let presupuesto;
 //
@@ -141,18 +153,7 @@ function guardarDatos(datosIngresados){
 guardarDatos(gasto);
 
     //CREAR UNO PARA ELIMINAR UN GASTO
-function sacarGasto(id){
-    // elimina gastos del obj
-    presupuesto.sacarGasto(id);
 
-    const {gastos, restante} = presupuesto;
-    // elimina gastos en html
-    idx.agregarGasto(gastos);
-
-    // actualizar restante
-    idx.newRestante(restante);
-
-}
 
 //STORAGE
 function getListadoGastos(){
@@ -163,6 +164,4 @@ function getListadoGastos(){
         return listadoGastosLocal;
     }
 }
-console.log(getListadoGastos())
-    }
-
+console.log(getListadoGastos())}
