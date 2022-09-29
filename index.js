@@ -109,46 +109,18 @@ class Idx {
 
     newRestante(restante){
         document.querySelector('#restante').textContent = restante;
+         if(restante < 0){
+        idx.mostrarGasto('Sus gastos exceden el presupuesto', 'error');
 
     }}
+}
    
     const idx = new Idx();
     //CONSULTA PARA DATOS
     function presupuestoEstimado (){
-        const valorUsuario = Swal.fire({
-  title: 'Submit your Github username',
-  input: 'text',
-  inputAttributes: {
-    autocapitalize: 'off'
-  },
-  showCancelButton: true,
-  confirmButtonText: 'Look up',
-  showLoaderOnConfirm: true,
-  preConfirm: (login) => {
-    return fetch(`//api.github.com/users/${login}`)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(response.statusText)
-        }
-        return response.json()
-      })
-      .catch(error => {
-        Swal.showValidationMessage(
-          `Request failed: ${error}`
-        )
-      })
-  },
-  allowOutsideClick: () => !Swal.isLoading()
-}).then((result) => {
-  if (result.isConfirmed) {
-    Swal.fire({
-      title: `${result.value.login}'s avatar`,
-      imageUrl: result.value.avatar_url
-    })
-  }
-});
+        const valorUsuario = prompt('INGRESE SU PRESUPUESTO MENSUAL');
         if(valorUsuario === '' || valorUsuario === null || isNaN(valorUsuario) || valorUsuario <= 0){
-            window.location.reload();
+            //window.location.reload();
         }
         presupuesto = new Presupuesto(valorUsuario);
         idx.agregarPresupuesto(presupuesto);
@@ -158,18 +130,25 @@ class Idx {
 
         const nombre = document.querySelector('#gasto').value;
         const precio = Number (document.querySelector('#precio').value);
-        Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Gasto agregado',
-            showConfirmButton: false,
-            timer: 1500
-          })
-        
-//AGREGAR PARA VALIDAR LOS DATOS DEL FORMULARIO
+//VALIDAR DATOS INGRESADOS EN GASTOS
+        if(nombre === '' || precio === ''){
+            idx.mostrarGasto('Ambos campos son oblogatorios', 'error');
+            return;
+        } else if(precio <= 0 || isNaN(precio)){
+            idx.mostrarGasto('Debe ingresar un valor numérico para el gasto', 'error');
+            return;
+        } else{
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Gasto agregado',
+                showConfirmButton: false,
+                timer: 1000
+              })
+        }
+
         const gasto = {nombre, precio, id: Date.now()}
         presupuesto.newGasto(gasto);
-        idx.mostrarGasto('Gasto agregado');
 
         const {gastos, restante} = presupuesto;
         idx.agregarGasto(gastos);
