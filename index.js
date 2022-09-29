@@ -118,7 +118,15 @@ class Idx {
     const idx = new Idx();
     //CONSULTA PARA DATOS
     function presupuestoEstimado (){
-        const valorUsuario = prompt('INGRESE SU PRESUPUESTO MENSUAL');
+        const valorUsuario = Swal.fire({
+            text: 'Cual es su presupuesto mensual?',
+            input: 'number'
+          }).then(function(result) {
+            if (result.value) {
+              const amount = result.value
+              Swal.fire(' El presupuesto ingresado es: $' + amount )
+            }
+          });
         if(valorUsuario === '' || valorUsuario === null || isNaN(valorUsuario) || valorUsuario <= 0){
             //window.location.reload();
         }
