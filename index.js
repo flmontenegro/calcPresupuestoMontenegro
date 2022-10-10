@@ -123,9 +123,9 @@ class Idx {
     const idx = new Idx();
     //CONSULTA PARA DATOS
     function presupuestoEstimado (){
-        const valorUsuario = prompt('INGRESE SU PRESUPUESTO MENSUAL (solo números)');
+        const valorUsuario = prompt('INGRESE SU PRESUPUESTO MENSUAL');
         if(valorUsuario === '' || valorUsuario === null || isNaN(valorUsuario) || valorUsuario <= 0){
-            window.location.reload();
+            //window.location.reload();
         }
         presupuesto = new Presupuesto(valorUsuario);
         idx.agregarPresupuesto(presupuesto);
@@ -184,12 +184,12 @@ console.log(getListadoGastos())}
 
 //FETCH 
 
+
 btn.onclick = ()=> {
     fetch("https://formsubmit.co/mflortrabajos@gmail.com",{
-            method: "POST",
-            body: new FormData()
+        method: 'POST',
+        body: new FormData()
     })
-      .then(json =>{console.log(json)})
+      .then(response =>{console.log(response)})
       .then((data) => console.log(data))
 }
-      
