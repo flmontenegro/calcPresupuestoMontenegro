@@ -109,26 +109,23 @@ class Idx {
 
     newRestante(restante){
         document.querySelector('#restante').textContent = restante;
+        const msjAlert = document.querySelector('.restante');
          if(restante < 0){
         idx.mostrarGasto('Sus gastos exceden el presupuesto', 'error');
-
+        msjAlert.classList.remove('alert-success');
+        msjAlert.classList.add('alert-danger');
+    }else {
+        msjAlert.classList.remove('alert-danger');
+        msjAlert.classList.add('alert-success');
     }}
 }
    
     const idx = new Idx();
     //CONSULTA PARA DATOS
     function presupuestoEstimado (){
-        const valorUsuario = Swal.fire({
-            text: 'Cual es su presupuesto mensual?',
-            input: 'number'
-          }).then(function(result) {
-            if (result.value) {
-              const amount = result.value
-              Swal.fire(' El presupuesto ingresado es: $' + amount )
-            }
-          });
+        const valorUsuario = prompt('INGRESE SU PRESUPUESTO MENSUAL (solo números)');
         if(valorUsuario === '' || valorUsuario === null || isNaN(valorUsuario) || valorUsuario <= 0){
-            //window.location.reload();
+            window.location.reload();
         }
         presupuesto = new Presupuesto(valorUsuario);
         idx.agregarPresupuesto(presupuesto);
@@ -188,17 +185,11 @@ console.log(getListadoGastos())}
 //FETCH 
 
 btn.onclick = ()=> {
-    fetch('https://jsonplaceholder.typicode.com/posts', {
-        method: 'POST',
-        body: JSON.stringify({
-          title: gasto.value,
-          body: precio.value,
-        }),
-        headers: {
-            'Content-type': 'application/json; charset=UTF-8',
-        },   
+    fetch("https://formsubmit.co/mflortrabajos@gmail.com",{
+            method: "POST",
+            body: new FormData()
     })
-      .then((response) => response.json())
+      .then(json =>{console.log(json)})
       .then((data) => console.log(data))
 }
       
